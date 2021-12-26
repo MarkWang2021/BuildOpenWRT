@@ -75,9 +75,9 @@ jobs:
         #[ -e $PASSWALL_CFG ] && mv $PASSWALL_CFG openwrt/feeds/passwall/luci-app-passwall/root/usr/share/passwall/0_default_config
         #cat openwrt/feeds/passwall/luci-app-passwall/root/usr/share/passwall/0_default_config
         
-        #echo "Modify default IP to 192.168.1.8"
-        #cd openwrt
-        #sed -i 's/192.168.1.1/192.168.1.8/g' package/base-files/files/bin/config_generate
+        echo "Modify default IP to 192.168.1.8"
+        cd openwrt
+        sed -i 's/192.168.1.1/192.168.1.8/g' package/base-files/files/bin/config_generate
 
         
     - name: Load custom configuration
