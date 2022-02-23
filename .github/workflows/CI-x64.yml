@@ -47,30 +47,28 @@ jobs:
       - name: Update feeds
         run: |
           #sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
-          pwd
-          cd $GITHUB_WORKSPACE/openwrt
+          cd openwrt
           cp ../feeds.conf.default feeds.conf.default
+          cat feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
       - name: Generate configuration file
         run: | 
-          pwd
-          cd $GITHUB_WORKSPACE/openwrt
+          cd openwrt
           cp ../x86-64.config .config
           make defconfig
+          cat .config | grep "^CONFIG_PACKAGE_luci-app"
 
       - name: Make download
         run: |
-          pwd
-          cd $GITHUB_WORKSPACE/openwrt
+          cd openwrt
           make download -j8
           find dl -size -1024c -exec rm -f {} \;
 
       - name: Compile firmware
         run: |
-          pwd
-          cd $GITHUB_WORKSPACE/openwrt
+          cd openwrt
           make -j$(nproc) || make -j1 V=s
           echo "======================="
           echo "Space usage:"
@@ -83,8 +81,7 @@ jobs:
 
       - name: Prepare artifact
         run: |
-          pwd
-          cd $GITHUB_WORKSPACE/openwrt
+          cd openwrt
           mkdir -p ./artifact/firmware
           mkdir -p ./artifact/package
           mkdir -p ./artifact/buildinfo
@@ -97,19 +94,19 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: OpenWrt_buildinfo
-          path: ./artifact/buildinfo/
+          path: ./openwrt/artifact/buildinfo/
 
       - name: Deliver package
         uses: actions/upload-artifact@v2
         with:
           name: OpenWrt_package
-          path: ./artifact/package/
+          path: ./openwrt/artifact/package/
 
       - name: Deliver firmware
         uses: actions/upload-artifact@v2
         with:
           name: OpenWrt_firmware
-          path: ./bin/targets/
+          path: ./openwrt/bin/targets/
   
 
       - name: Upload release asset
@@ -117,6 +114,6 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.YOURTOKEN }}
-          file: ./artifact/firmware/*
+          file: ./openwrt/artifact/firmware/*
           tag: ${{ github.ref }}
           file_glob: true
