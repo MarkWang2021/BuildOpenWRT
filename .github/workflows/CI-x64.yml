@@ -9,7 +9,7 @@ name: OpenWrt-CI-x64
 
 on:
   schedule:
-    - cron: 0 20 * * 5
+    - cron: 0 23 * * 5
   release:
     types: [published]
   workflow_dispatch:
