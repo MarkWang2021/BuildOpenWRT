@@ -48,24 +48,29 @@ jobs:
         run: |
           #sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           pwd
-          cd /home/runner/work/BuildOpenWRT/BuildOpenWRT/openwrt
+          cd $GITHUB_WORKSPACE/openwrt
+          cp ../feeds.conf.default feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
       - name: Generate configuration file
         run: | 
           pwd
-          cd /home/runner/work/BuildOpenWRT/BuildOpenWRT/openwrt
-          cp ./x86-64.config .config
+          cd $GITHUB_WORKSPACE/openwrt
+          cp ../x86-64.config .config
           make defconfig
 
       - name: Make download
         run: |
+          pwd
+          cd $GITHUB_WORKSPACE/openwrt
           make download -j8
           find dl -size -1024c -exec rm -f {} \;
 
       - name: Compile firmware
         run: |
+          pwd
+          cd $GITHUB_WORKSPACE/openwrt
           make -j$(nproc) || make -j1 V=s
           echo "======================="
           echo "Space usage:"
@@ -78,6 +83,8 @@ jobs:
 
       - name: Prepare artifact
         run: |
+          pwd
+          cd $GITHUB_WORKSPACE/openwrt
           mkdir -p ./artifact/firmware
           mkdir -p ./artifact/package
           mkdir -p ./artifact/buildinfo
