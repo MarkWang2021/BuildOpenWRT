@@ -31,9 +31,9 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          docker rmi `docker images -q`
-          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
+          #docker rmi `docker images -q`
+          #sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+          #sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
           sudo -E apt-get update
           sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf swig
           sudo -E apt-get -y autoremove --purge
@@ -43,21 +43,19 @@ jobs:
       - name: Clone source code  
         run:  |
           git clone https://github.com/coolsnowwolf/lede.git openwrt
-          pwd
-          ll
-        
+              
       - name: Update feeds
         run: |
           #sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           pwd
-          ll
+          cd /home/runner/work/BuildOpenWRT/BuildOpenWRT/openwrt
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
       - name: Generate configuration file
         run: | 
           pwd
-          ll 
+          cd /home/runner/work/BuildOpenWRT/BuildOpenWRT/openwrt
           cp ./x86-64.config .config
           make defconfig
 
