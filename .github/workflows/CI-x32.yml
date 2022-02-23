@@ -5,11 +5,11 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: OpenWrt-CI-x64
+name: OpenWrt-CI-x32
 
 on:
   schedule:
-    - cron: 0 23 * * 4
+    - cron: 0 18 * * 4
   release:
     types: [published]
   workflow_dispatch:
@@ -56,7 +56,7 @@ jobs:
       - name: Generate configuration file
         run: | 
           cd openwrt
-          cp ../x86-64.config .config
+          cp ../x86-32.config .config
           make defconfig
           cat .config | grep "^CONFIG_TARGET"
           cat .config | grep "^CONFIG_PACKAGE_luci-app"
