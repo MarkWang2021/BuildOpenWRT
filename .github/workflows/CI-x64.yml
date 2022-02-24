@@ -60,7 +60,7 @@ jobs:
           make defconfig
           cat .config | grep "^CONFIG_TARGET"
           cat .config | grep "^CONFIG_PACKAGE_luci-app"
-          cp .config ./bin/targets/myconfig.buildinfo
+          cat .config | grep "^CONFIG" > ./bin/targets/myconfig.buildinfo
           
       - name: Make download
         run: |
