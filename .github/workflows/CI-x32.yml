@@ -60,8 +60,7 @@ jobs:
           make defconfig
           cat .config | grep "^CONFIG_TARGET"
           cat .config | grep "^CONFIG_PACKAGE_luci-app"
-          cat .config | grep "^CONFIG" > ./bin/targets/myconfig.buildinfo
-
+          
       - name: Make download
         run: |
           cd openwrt
@@ -91,6 +90,7 @@ jobs:
           cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
           cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
+          cat .config | grep "^CONFIG" > ./bin/targets/myconfig.buildinfo
 
       - name: Deliver buildinfo
         uses: actions/upload-artifact@v2
