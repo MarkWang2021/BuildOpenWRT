@@ -1,8 +1,6 @@
 name: Test
 
 on:
-  release:
-    types: [published]
   workflow_dispatch:
 
 jobs:
@@ -12,6 +10,6 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.REPTOKEN}}
-          file: *.config
+          file: *
           tag: ${{ github.ref }}
           file_glob: true
