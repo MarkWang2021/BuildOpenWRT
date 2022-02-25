@@ -1,0 +1,17 @@
+name: Test
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+
+  build_openwrt:
+      - name: Upload release asset
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.REPTOKEN}}
+          file: *.config
+          tag: ${{ github.ref }}
+          file_glob: true
