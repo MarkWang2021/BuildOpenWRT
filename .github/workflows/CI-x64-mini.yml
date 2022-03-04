@@ -57,7 +57,7 @@ jobs:
         run: | 
           cd openwrt
           cp ../x86-64-mini.config .config
-          make defconfig
+          #make defconfig
           cat .config | grep "^CONFIG_TARGET"
           cat .config | grep "^CONFIG_PACKAGE_luci-app"
                     
