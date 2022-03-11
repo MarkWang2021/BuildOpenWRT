@@ -9,7 +9,7 @@ name: OpenWrt-CI-x32
 
 on:
   schedule:
-    - cron: 0 23 * * 3
+    - cron: 0 18 * * 4
   release:
     types: [published]
   workflow_dispatch:
@@ -57,10 +57,10 @@ jobs:
         run: | 
           cd openwrt
           cp ../x86-32.config .config
-          make defconfig
+          #make defconfig
           cat .config | grep "^CONFIG_TARGET"
           cat .config | grep "^CONFIG_PACKAGE_luci-app"
-          
+                    
       - name: Make download
         run: |
           cd openwrt
@@ -87,10 +87,10 @@ jobs:
           mkdir -p ./artifact/package
           mkdir -p ./artifact/buildinfo
           rm -rf $(find ./bin/targets/ -type d -name "packages")
+          cat .config | grep "^CONFIG" > ./bin/targets/myconfig.buildinfo
           cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
           cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
-          cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
-          cat .config | grep "^CONFIG" > ./artifact/buildinfo/myconfig.buildinfo
+          cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/          
 
       - name: Deliver buildinfo
         uses: actions/upload-artifact@v2
