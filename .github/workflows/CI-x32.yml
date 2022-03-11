@@ -9,7 +9,7 @@ name: OpenWrt-CI-x32
 
 on:
   schedule:
-    - cron: 0 18 * * 4
+    - cron: 0 23 * * 5
   release:
     types: [published]
   workflow_dispatch:
@@ -57,7 +57,7 @@ jobs:
         run: | 
           cd openwrt
           cp ../x86-32.config .config
-          #make defconfig
+          make defconfig
           cat .config | grep "^CONFIG_TARGET"
           cat .config | grep "^CONFIG_PACKAGE_luci-app"
                     
