@@ -47,7 +47,6 @@ jobs:
               
       - name: Update feeds
         run: |
-          #sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           cd openwrt
           cp ../feeds.conf.default feeds.conf.default
           cat feeds.conf.default
@@ -55,6 +54,18 @@ jobs:
           cp -r ../openwrt-passwall/luci-app-passwall ./feeds/passwall/
           ./scripts/feeds update -a
           ./scripts/feeds install -a
+
+      - name: Modify default configuration
+        run: |
+          cd openwrt
+          echo "copy Custom passwall config file to 0_default_config" 
+          cp ../passwall ./feeds/passwall/luci-app-passwall/root/usr/share/passwall/0_default_config
+          cat ./feeds/passwall/luci-app-passwall/root/usr/share/passwall/0_default_config
+        
+          echo "Modify default IP to 192.168.1.5"
+          sed -i 's/192.168.1.1/192.168.1.5/g' package/base-files/files/bin/config_generate
+
+
 
       - name: Generate configuration file
         run: | 
