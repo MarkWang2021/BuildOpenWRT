@@ -51,7 +51,7 @@ jobs:
           cp ../feeds.conf.default feeds.conf.default
           cat feeds.conf.default
           ./scripts/feeds update -a
-          cp -r ../openwrt-passwall/luci-app-passwall ./feeds/passwall/
+          #cp -r ../openwrt-passwall/luci-app-passwall ./feeds/passwall/
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
