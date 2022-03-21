@@ -11,6 +11,4 @@ Build OpenWRT Fireware use Lede Repository
 
 5、mini版本仅包含passwall和zerotier app，全版本包括了常用的内网穿透、vpn服务、管理软件等
 
-6、mini版本包含默认的passwall配置文件
-
-7、为方便使用，x64 mini设置默认ip 10.70.228.225，x32 mini设置默认ip 192.168.1.5
+6、定制配置 x64 mini设置默认ip 10.70.228.225，x32 mini设置默认ip 192.168.1.5
