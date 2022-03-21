@@ -58,7 +58,7 @@ jobs:
       - name: Modify default configuration
         run: |
           cd openwrt
-          echo "copy Custom passwall config file to 0_default_config" 
+          #echo "copy Custom passwall config file to 0_default_config" 
           #cp ../passwall ./feeds/passwall/luci-app-passwall/root/usr/share/passwall/0_default_config
           #cat ./feeds/passwall/luci-app-passwall/root/usr/share/passwall/0_default_config
         
