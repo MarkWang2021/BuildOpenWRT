@@ -58,9 +58,9 @@ jobs:
       - name: Modify default configuration
         run: |
           cd openwrt
-          echo "copy Custom passwall config file to 0_default_config" 
-          cp ../passwall ./feeds/passwall/luci-app-passwall/root/usr/share/passwall/0_default_config
-          cat ./feeds/passwall/luci-app-passwall/root/usr/share/passwall/0_default_config
+          #echo "copy Custom passwall config file to 0_default_config" 
+          #cp ../passwall ./feeds/passwall/luci-app-passwall/root/usr/share/passwall/0_default_config
+          #cat ./feeds/passwall/luci-app-passwall/root/usr/share/passwall/0_default_config
         
           echo "Modify default IP to 192.168.1.5"
           sed -i 's/192.168.1.1/192.168.1.5/g' package/base-files/files/bin/config_generate
